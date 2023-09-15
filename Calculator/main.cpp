@@ -8,11 +8,38 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
+void log_to_file(double result) {
+    // Відкриваємо файл для дозапису
+    std::ofstream logfile("./log.txt", std::ios_base::app);
+    
+    // Перевіряємо, чи вдалося відкрити файл
+    if (!logfile) {
+        std::cout << "File not created!";
+        return;
+    }
+    
+    // Отримуємо поточний час (код з Stack Overflow)
+    std::time_t curr_time = std::time(nullptr);
+    std::tm* curr_tm = std::localtime(&curr_time);
+    
+    // Форматуємо дату та час
+    char date_string[100];
+    std::strftime(date_string, sizeof(date_string), "[%d.%m.%Y %T] ", curr_tm);
+    
+    // Записуємо результат у файл
+    logfile << date_string << result << '\n';
+    
+    // Закриваємо файл
+    logfile.close();
+}
+
 int main() {
-    ofstream logfile;
+    // Невеличкий туторіал для користувача
+    std::cout << "A little information about the available operators and their designations.\n1. (+) - adding.\n2. (-) - subtraction.\n3. (*) - multiplication.\n4. (/) - division.\n5. (r) - get the square root of the number.\n6. (^) - raise a number to a power.\n\n";
     
     while (true) {
         // Оголошуємо зміні
@@ -74,8 +101,9 @@ int main() {
             }
         }
         
-        // Виводимо результат
+        // Виводимо результат і записуємо його до файлу
         cout << "The result is: " << result << std::endl;
+        log_to_file(result);
         
         // Питаємо користувача, чи він бажає продовжити
         string continue_answer;
@@ -84,16 +112,6 @@ int main() {
         
         // Перевіряємо відповідь користувача
         if (continue_answer == "y" or continue_answer == "yes") {
-            // Записуємо результати до файлу (оптимізація вийшла з чату)
-            logfile.open(
-                         "./log.txt",
-                         std::ios_base::app); // Додаємо інфу в файл, замість перезапису
-            if (!logfile) {
-                cout << "File not created!";
-            }
-            
-            logfile << result << "\n";
-            logfile.close();
             std::cout << std::endl;
         } else if (continue_answer == "n" or continue_answer == "no") {
             return 0;
