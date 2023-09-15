@@ -6,6 +6,7 @@
 //
 
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -40,6 +41,43 @@ int main() {
             case 47:
                 // Ділення: виконуємо операцію ділення першого числа на друге
                 result = first_number / second_number;
+                break;
+            case 'r':
+                // Знаходження квадратних коренів
+                if (first_number > 0) {
+                    first_number = sqrt(first_number);
+                } else {
+                    first_number = sqrt(-first_number);
+                }
+                
+                if (second_number > 0) {
+                    second_number = sqrt(second_number);
+                } else {
+                    second_number = sqrt(-second_number);
+                }
+                
+                std::cout << "\nThe root of first number is: " << first_number << std::endl << "The root of second number is: " << second_number << std::endl;
+                
+                return 0;
+                break;
+            case '^':
+                // Знаходження чисел піднесених до степеня
+                int exponent;
+                cout << "\nRaise to: ";
+                cin >> exponent;
+                
+                if (exponent < 0) {
+                    first_number = std::pow(first_number, -exponent);
+                    second_number = std::pow(second_number, -exponent);
+                    
+                    std::cout << "\nThe first result is: 1/" << first_number << std::endl << "The second number is: 1/" << second_number << std::endl;
+                } else {
+                    first_number = std::pow(first_number, exponent);
+                    second_number = std::pow(second_number, exponent);
+                    
+                    std::cout << "\nThe first result is: " << first_number << std::endl << "The second number is: " << second_number << std::endl;
+                }
+                return 0;
                 break;
             default:
                 // Невідома операція: виводимо повідомлення про помилку
