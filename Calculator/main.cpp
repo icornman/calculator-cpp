@@ -37,9 +37,19 @@ void log_to_file(double result) {
     logfile.close();
 }
 
+void clear_log() {
+    // Очищаємо файл
+    std::ofstream logfile("./log.txt");
+    logfile << "";
+    // Закриваємо файл
+    logfile.close();
+}
+
 int main() {
     // Невеличкий туторіал для користувача
     std::cout << "A little information about the available operators and their designations.\n1. (+) - adding.\n2. (-) - subtraction.\n3. (*) - multiplication.\n4. (/) - division.\n5. (r) - get the square root of the number.\n6. (^) - raise a number to a power.\n\n";
+    
+    clear_log();
     
     while (true) {
         // Оголошуємо зміні
@@ -114,12 +124,11 @@ int main() {
         if (continue_answer == "y" or continue_answer == "yes") {
             std::cout << std::endl;
         } else if (continue_answer == "n" or continue_answer == "no") {
+            clear_log();
             return 0;
         } else {
             std::cout << "The answer is not valid." << std::endl;
             return 0;
         }
     }
-    
-    return 0;
 }
